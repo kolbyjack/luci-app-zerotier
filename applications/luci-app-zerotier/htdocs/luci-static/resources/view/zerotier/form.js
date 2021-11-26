@@ -6,7 +6,7 @@ return view.extend({
   render: function() {
     var m, s, o;
 
-    m = new form.Map('example', _('Example Form'),
+    m = new form.Map('zerotier', _('Example Form'),
          _('Example Form Configuration.'));
 
     s = m.section(form.TypedSection, 'first', _('first section'));

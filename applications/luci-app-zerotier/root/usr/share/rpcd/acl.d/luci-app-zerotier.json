@@ -1,6 +1,6 @@
 {
-  "luci-app-example": {
-    "description": "Grant UCI access to LuCI app ecample",
+  "luci-app-zerotier": {
+    "description": "Grant UCI access to LuCI app zerotier",
     "read": {
       "ubus": {
         "uci": [
@@ -8,7 +8,7 @@
         ]
       },
       "uci": [
-        "example"
+        "zerotier"
       ]
     },
     "write": {
@@ -18,7 +18,7 @@
         ]
       },
       "uci": [
-        "example"
+        "zerotier"
       ]
     }
   }

@@ -8,14 +8,14 @@ return view.extend({
   handleReset: null,
   load: function() {
     return Promise.all([
-      uci.load('example')
+      uci.load('zerotier')
     ]);
   },
   render: function(data) {
     var body = E([
       E('h2', _('Example HTML Page'))
     ]);
-    var sections = uci.sections('example');
+    var sections = uci.sections('zerotier');
     var listContainer = E('div');
     var list = E('ul');
     list.appendChild(E('li', { 'class': 'css-class' }, ['First Option in first section: ', E('em', {}, [sections[0].first_option])]));

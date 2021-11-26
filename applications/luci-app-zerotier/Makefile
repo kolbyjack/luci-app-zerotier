@@ -3,9 +3,9 @@
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=LuCI example app for js based luci
-LUCI_DEPENDS:=+luci-base
+LUCI_TITLE:=LuCI app for configuring zerotier networks
+LUCI_DEPENDS:=+luci-base +zerotier
 
-include ../../luci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
