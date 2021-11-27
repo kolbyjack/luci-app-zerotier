@@ -1,30 +1,10 @@
 {
-  "admin/zerotier/": {
-    "title": "Example",
-    "order": 60,
-    "action": {
-      "type": "firstchild"
-    },
-    "depends": {
-      "acl": [ "luci-app-zerotier" ]
-    }
-  },
-
-  "admin/zerotier/form": {
-    "title": "Form View",
-    "order": 1,
+  "admin/network/zerotier": {
+    "title": "ZeroTier",
+    "order": 99,
     "action": {
       "type": "view",
-      "path": "zerotier/form"
-    }
-  },
-
-  "admin/zerotier/html": {
-    "title": "HTML Page",
-    "order": 2,
-    "action": {
-      "type": "view",
-      "path": "zerotier/htmlview"
+      "path": "network/zerotier"
     }
   }
 }
