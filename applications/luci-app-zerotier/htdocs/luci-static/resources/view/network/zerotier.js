@@ -12,7 +12,7 @@ return view.extend({
     s.addremove = true;
 
     o = s.option(form.Flag, 'enabled', _('Enabled'));
-    o.default = '1';
+    o.default = '0';
     o.rmempty = false;
 
     o = s.option(form.Value, 'port', _('Port'));
