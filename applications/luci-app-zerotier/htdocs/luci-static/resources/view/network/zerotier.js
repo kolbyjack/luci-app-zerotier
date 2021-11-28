@@ -15,10 +15,9 @@ return view.extend({
     o.default = '0';
     o.rmempty = false;
 
-    o = s.option(form.Value, 'port', _('Port'));
-    o.default = '9993';
+    s.option(form.Value, 'port', _('Port'));
 
-    o = s.option(form.DynamicList, 'join', _('Networks'));
+    s.option(form.DynamicList, 'join', _('Networks'));
 
     return m.render();
   },
