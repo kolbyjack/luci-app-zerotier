@@ -23,5 +23,6 @@ function linkdir() {
 uci set luci.ccache.enable=0
 uci commit luci
 
-linkdir applications/luci-app-zerotier/htdocs /www
+#linkdir applications/luci-app-zerotier/htdocs /www
 linkdir applications/luci-app-zerotier/root /
+linkdir applications/luci-app-zerotier/luasrc /usr/lib/lua/luci
