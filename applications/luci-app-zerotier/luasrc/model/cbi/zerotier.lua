@@ -24,16 +24,35 @@ function map_table(tbl, f)
   return t
 end
 
+function call(...)
+  sys.call(table.concat(arg, " ") .. " >/dev/null 2>&1")
+end
+
+function exec(...)
+  return util.exec(table.concat(arg, " "))
+end
+
 function call_zt(section, cmd, nwid)
-  sys.call("zerotier-cli -D/var/lib/zerotier-one_" .. section .. " " .. cmd .. " " .. nwid .. " >/dev/null 2>&1")
+  call("zerotier-cli", "-D/var/lib/zerotier-one_" .. section, cmd, nwid)
 end
 
 function exec_zt(section, cmd)
-  return json.decode(util.exec("zerotier-cli -D/var/lib/zerotier-one_" .. section .. " -j " .. cmd))
+  return json.decode(exec("zerotier-cli", "-D/var/lib/zerotier-one_" .. section, "-j", cmd))
 end
 
 local m = Map("zerotier", translate("ZeroTier Settings"))
+
+m.on_before_commit = function(self)
+  self.zt_config_changed = self.changed
+end
+
 m.on_after_commit = function(self)
+  if not self.zt_config_changed then
+    return
+  end
+
+  call("/etc/init.d/zerotier", "restart")
+
   uci:foreach("zerotier", "zerotier",
     function(section)
       joined_networks = map_table(exec_zt(section[".name"], "listnetworks"),
