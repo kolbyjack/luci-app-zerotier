@@ -4,7 +4,7 @@
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=LuCI app for configuring zerotier networks
-LUCI_DEPENDS:=+luci-base +zerotier
+LUCI_DEPENDS:=+luci-base +luci-lib-json +zerotier
 
 include $(TOPDIR)/feeds/luci/luci.mk
 
