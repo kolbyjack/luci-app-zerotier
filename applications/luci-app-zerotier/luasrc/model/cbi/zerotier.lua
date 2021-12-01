@@ -6,16 +6,6 @@ local sys = require "luci.sys"
 
 local m = Map("zerotier", translate("ZeroTier Settings"))
 
-m.on_before_commit = function(self)
-  self.zt_config_changed = self.changed
-end
-
-m.on_after_commit = function(self)
-  if self.zt_config_changed then
-    sys.init.restart(packageName)
-  end
-end
-
 s = m:section(TypedSection, "zerotier")
 s.addremove = true
 
