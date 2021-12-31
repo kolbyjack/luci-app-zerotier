@@ -24,7 +24,7 @@ return view.extend({
       return !!uci.get('zerotier', section_id, 'config_path');
     };
     o.write = function(section_id, form_value) {
-      let config_path = (!!+form_value) ? `/etc/config/zerotier-${sfh(section_id)}.d` : null;
+      let config_path = (!!+form_value) ? `/etc/zerotier.d/${section_id}.d` : null;
       if (config_path !== null) {
         fs.exec('/bin/mkdir', ['-p', config_path]);
       }
