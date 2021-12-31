@@ -2,24 +2,13 @@
   "luci-app-zerotier": {
     "description": "Grant UCI access to LuCI app zerotier",
     "read": {
-      "ubus": {
-        "uci": [
-          "get"
-        ]
-      },
-      "uci": [
-        "zerotier"
-      ]
+      "uci": ["zerotier"]
     },
     "write": {
-      "ubus": {
-        "uci": [
-          "set", "commit"
-        ]
+      "file": {
+      	"/bin/mkdir": ["exec"]
       },
-      "uci": [
-        "zerotier"
-      ]
+      "uci": ["zerotier"]
     }
   }
 }

@@ -5,6 +5,9 @@
     "action": {
       "type": "view",
       "path": "vpn/zerotier"
+    },
+    "depends": {
+      "acl": ["luci-app-zerotier"]
     }
   }
 }
