@@ -8,7 +8,7 @@ return view.extend({
   render: function() {
     var m, s, o;
 
-    m = new form.Map('zerotier', _('ZeroTier Settings'));
+    m = new form.Map('zerotier', _('ZeroTier'));
     m.anonymous = true;
 
     s = m.section(form.TypedSection, 'zerotier');
@@ -18,7 +18,7 @@ return view.extend({
     o.default = '0';
     o.rmempty = false;
 
-    o = s.option(form.Flag, '_config_path', _('Persist Configuration for ZT controller mode'));
+    o = s.option(form.Flag, '_config_path', _('Persist configuration for controller mode'));
     o.rmempty = false;
     o.cfgvalue = function(section_id) {
       return !!uci.get('zerotier', section_id, 'config_path');
