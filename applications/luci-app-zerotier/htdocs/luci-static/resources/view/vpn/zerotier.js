@@ -1,18 +1,45 @@
 'use strict';
 'require form';
 'require fs';
+'require poll';
 'require uci';
 'require view';
 
 return view.extend({
   render: function() {
-    var m, s, o;
+    let m, s, o;
 
     m = new form.Map('zerotier', _('ZeroTier'));
     m.anonymous = true;
 
     s = m.section(form.TypedSection, 'zerotier');
     s.anonymous = true;
+
+    o = s.option(form.DummyValue, '_status', _('Status'));
+    o.render = function(section_id) {
+      let status_div = E('div', { 'class': 'cbi-value-field' }, _('Loading...'));
+
+      poll.add(function() {
+        return L.resolveDefault(fs.exec('/usr/bin/zerotier-cli', ['-j', 'info'])).then(function(status) {
+          let text = _('NOT RUNNING');
+
+          try {
+            status = JSON.parse(status.stdout);
+            text = `v${status.version} ${status.online ? _('ONLINE') : _('OFFLINE')}`;
+          } catch {
+          }
+
+          status_div.innerText = text;
+        });
+      });
+
+      return E('div', { 'class': 'cbi-value' }, [
+        E('label', { 'class': 'cbi-value-title' }, _('Status')),
+        status_div
+      ]);
+    };
+    o.write = function(section_id, form_value) {
+    };
 
     o = s.option(form.Flag, 'enabled', _('Enabled'));
     o.default = '0';

@@ -1,14 +1,15 @@
 {
   "luci-app-zerotier": {
-    "description": "Grant UCI access to LuCI app zerotier",
+    "description": "Grant access to LuCI app zerotier",
     "read": {
-      "uci": ["zerotier"]
+      "uci": ["zerotier"],
+      "file": {
+      	"/bin/mkdir": ["exec"],
+	"/usr/bin/zerotier-cli": ["exec"],
+      },
     },
     "write": {
-      "file": {
-      	"/bin/mkdir": ["exec"]
-      },
-      "uci": ["zerotier"]
-    }
+      "uci": ["zerotier"],
+    },
   }
 }
