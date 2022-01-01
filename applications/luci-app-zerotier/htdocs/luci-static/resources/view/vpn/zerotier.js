@@ -22,14 +22,24 @@ return view.extend({
       poll.add(function() {
         return L.resolveDefault(fs.exec('/usr/bin/zerotier-cli', ['-j', 'info'])).then(function(status) {
           let text = _('NOT RUNNING');
+          let version = '';
+          let color = 'red';
 
           try {
             status = JSON.parse(status.stdout);
-            text = `v${status.version} ${status.online ? _('ONLINE') : _('OFFLINE')}`;
+            version = `v${status.version} `;
+            if (status.online) {
+              text = _('ONLINE');
+              color = 'green';
+            } else {
+              text = _('OFFLINE');
+              color = 'goldenrod';
+            }
           } catch {
           }
 
-          status_div.innerText = text;
+          status_div.innerText = `${version}${text}`;
+          status_div.style.color = color;
         });
       });
 
