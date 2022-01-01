@@ -58,6 +58,9 @@ return view.extend({
       uci.set('zerotier', section_id, 'config_path', config_path);
     };
 
+    o = s.option(form.Flag, 'copy_config_path', _('Copy config to RAM to avoid writing to flash'));
+    o.depends('_config_path', '1');
+
     o = s.option(form.Value, 'port', _('Port'));
     o.default = '9993';
 
