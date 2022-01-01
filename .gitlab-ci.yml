@@ -1,0 +1,25 @@
+stages:
+  - build
+
+build:
+  stage: build
+  tags:
+    - docker
+  image: ubuntu
+  variables:
+    DEBIAN_FRONTEND: noninteractive
+    FORCE_UNSAFE_CONFIGURE: 1
+  script:
+    - apt update
+    - DEBIAN_FRONTEND=noninteractive apt install -y build-essential libncurses5-dev libncursesw5-dev zlib1g-dev gawk git gettext libssl-dev xsltproc rsync wget unzip python3 file
+    - git clone --branch openwrt-21.02 --depth 1 https://github.com/openwrt/openwrt.git /openwrt
+    - cd /openwrt
+    - echo "src-git packages https://github.com/openwrt/packages.git;openwrt-21.02" >> feeds.conf
+    - echo "src-git luci https://github.com/openwrt/luci.git;openwrt-21.02" >> feeds.conf
+    - echo "src-link local $CI_PROJECT_DIR" >> feeds.conf
+    - ./scripts/feeds update -a
+    #- make defconfig tools/install toolchain/install package/luci-app-zerotier
+    - make defconfig
+    - grep -i zerotier .config
+    - make -j1 V=sc package/luci-app-zerotier
+    - find /openwrt -name '*.ipk'
