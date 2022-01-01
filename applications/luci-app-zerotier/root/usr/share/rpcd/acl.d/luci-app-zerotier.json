@@ -5,7 +5,7 @@
       "uci": ["zerotier"],
       "file": {
       	"/bin/mkdir": ["exec"],
-	"/usr/bin/zerotier-cli": ["exec"],
+	"/usr/bin/zerotier-cli -j info": ["exec"],
       },
     },
     "write": {
