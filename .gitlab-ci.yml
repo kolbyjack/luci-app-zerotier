@@ -8,13 +8,12 @@ build:
   image: openwrtorg/sdk
   script:
     - cd ~/openwrt
+    - echo "src-link local $CI_PROJECT_DIR" >> feeds.conf.default
     - ./scripts/feeds update -a
-    - echo "src-link local $CI_PROJECT_DIR" >> feeds.conf
-    - ./scripts/feeds update local
     - make defconfig
     - ./scripts/feeds install luci-app-zerotier
-    - grep -v '^#' .config | grep -v '^$'
-    - make -j1 V=sc package/luci-app-zerotier/compile
-    - find . -name '*.ipk'
-    - make -j1 V=sc package/index
-    - find . -name '*.ipk'
+    - make package/luci-app-zerotier/compile
+    - mv bin/packages/*/local/*.ipk "$CI_PROJECT_DIR"
+  artifacts:
+    paths:
+      - "*.ipk"
