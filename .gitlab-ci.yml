@@ -5,16 +5,16 @@ build:
   stage: build
   tags:
     - docker
-  image: registry.gitlab.com/kolbyhack/openwrt/builder-image
+  image: openwrtorg/sdk
   script:
     - cd ~/openwrt
-    - echo "src-link local $CI_PROJECT_DIR" >> feeds.conf
     - ./scripts/feeds update -a
-    - ./scripts/feeds install -a
+    - echo "src-link local $CI_PROJECT_DIR" >> feeds.conf
+    - ./scripts/feeds update local
     - make defconfig
-    - echo "CONFIG_PACKAGE_luci-app-zerotier=m" >> .config
+    - ./scripts/feeds install luci-app-zerotier
     - grep -v '^#' .config | grep -v '^$'
     - make -j1 V=sc package/luci-app-zerotier/compile
-    - make -j1 V=sc package/luci-app-zerotier/install
+    - find . -name '*.ipk'
     - make -j1 V=sc package/index
     - find . -name '*.ipk'
