@@ -13,6 +13,8 @@ build:
     - make defconfig
     - ./scripts/feeds install luci-app-zerotier
     - make package/luci-app-zerotier/compile
+    - make package/index
+    - find bin -type f
     - mv bin/packages/*/local/*.ipk "$CI_PROJECT_DIR"
   artifacts:
     paths:
