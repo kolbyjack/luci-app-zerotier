@@ -11,8 +11,6 @@ build:
   artifacts:
     paths:
       - "*.ipk"
-      - Packages
-      - Packages.gz
 
 pages:
   stage: deploy
