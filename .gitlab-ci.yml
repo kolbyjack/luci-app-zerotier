@@ -7,15 +7,19 @@ build:
     - docker
   image: openwrtorg/sdk
   script:
+    - git clone git://git.yoctoproject.org/opkg-utils ~/opkg-utils
     - cd ~/openwrt
     - echo "src-link local $CI_PROJECT_DIR" >> feeds.conf.default
     - ./scripts/feeds update -a
     - make defconfig
     - ./scripts/feeds install luci-app-zerotier
     - make package/luci-app-zerotier/compile
-    - make package/index
-    - find bin -type f
     - mv bin/packages/*/local/*.ipk "$CI_PROJECT_DIR"
+    - cd "$CI_PROJECT_DIR"
+    - ~/opkg-utils/opkg-make-index . > Packages
+    - gzip < Packages > Packages.gz
   artifacts:
     paths:
       - "*.ipk"
+      - Packages
+      - Packages.gz
