@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 git clone git://git.yoctoproject.org/opkg-utils
 
