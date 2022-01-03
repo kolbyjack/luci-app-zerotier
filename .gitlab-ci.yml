@@ -1,25 +1,24 @@
 stages:
   - build
+  - deploy
 
 build:
   stage: build
   tags:
     - docker
   image: openwrtorg/sdk
-  script:
-    - git clone git://git.yoctoproject.org/opkg-utils ~/opkg-utils
-    - cd ~/openwrt
-    - echo "src-link local $CI_PROJECT_DIR" >> feeds.conf.default
-    - ./scripts/feeds update -a
-    - make defconfig
-    - ./scripts/feeds install luci-app-zerotier
-    - make package/luci-app-zerotier/compile
-    - mv bin/packages/*/local/*.ipk "$CI_PROJECT_DIR"
-    - cd "$CI_PROJECT_DIR"
-    - ~/opkg-utils/opkg-make-index . > Packages
-    - gzip < Packages > Packages.gz
+  script: tools/ci-build.sh
   artifacts:
     paths:
       - "*.ipk"
       - Packages
       - Packages.gz
+
+pages:
+  stage: deploy
+  script: tools/ci-pages.sh
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
