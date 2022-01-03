@@ -18,5 +18,5 @@ make defconfig
 echo ===============================================================
 make -dn package/luci-app-zerotier/compile
 echo ===============================================================
-make -o feeds/luci/modules/luci-base -o feeds/packages/net/zerotier package/luci-app-zerotier/compile
+make -o feeds/luci/modules/luci-base -o feeds/packages/net/zerotier -o prereq -o package/prereq package/luci-app-zerotier/compile
 mv bin/packages/*/local/*.ipk "$CI_PROJECT_DIR"
