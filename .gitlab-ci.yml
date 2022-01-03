@@ -16,6 +16,11 @@ build:
 
 pages:
   stage: deploy
+  tags:
+    - docker
+  image: alpine:latest
+  dependencies:
+    - build
   script: tools/ci-pages.sh
   artifacts:
     paths:
