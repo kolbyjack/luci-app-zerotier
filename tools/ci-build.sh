@@ -15,6 +15,8 @@ EOF
 ./scripts/feeds update -a
 make defconfig
 ./scripts/feeds install luci-app-zerotier
-make -dn MAKE=: package/luci-app-zerotier/compile | sed -rn "s/^ *Considering target file '(.*)'\.$/\1/p"
+echo ===============================================================
+make -dn package/luci-app-zerotier/compile
+echo ===============================================================
 make -o feeds/luci/modules/luci-base -o feeds/packages/net/zerotier package/luci-app-zerotier/compile
 mv bin/packages/*/local/*.ipk "$CI_PROJECT_DIR"
