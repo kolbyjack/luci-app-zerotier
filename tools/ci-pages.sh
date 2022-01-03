@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-apk add git
+apk add git python3
 git clone git://git.yoctoproject.org/opkg-utils
 
 opkg-utils/opkg-make-index . > Packages
