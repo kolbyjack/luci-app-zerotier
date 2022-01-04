@@ -15,8 +15,5 @@ EOF
 ./scripts/feeds update -a
 make defconfig
 ./scripts/feeds install luci-app-zerotier
-#echo ===============================================================
-#make -dn package/luci-app-zerotier/compile
-#echo ===============================================================
-make -o feeds/luci/modules/luci-base -o feeds/packages/net/zerotier -o prereq -o package/prereq package/luci-app-zerotier/compile
+make package/luci-app-zerotier/compile
 mv bin/packages/*/local/*.ipk "$CI_PROJECT_DIR"
