@@ -1,9 +1,6 @@
 #!/bin/bash -e
 
-cd
-git clone git://git.yoctoproject.org/opkg-utils
-
-cd openwrt
+cd ~/openwrt
 
 cat <<-EOF > feeds.conf
 src-git base https://github.com/openwrt/openwrt.git
@@ -15,5 +12,5 @@ EOF
 ./scripts/feeds update -a
 make defconfig
 ./scripts/feeds install luci-app-zerotier
-make package/luci-app-zerotier/compile
+make -j$(nproc) package/luci-app-zerotier/compile
 mv bin/packages/*/local/*.ipk "$CI_PROJECT_DIR"

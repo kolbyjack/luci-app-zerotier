@@ -7,7 +7,7 @@ build:
   tags:
     - docker
   image: openwrtorg/sdk
-  script: tools/ci-build.sh
+  script: .ci-tools/build.sh
   artifacts:
     paths:
       - "*.ipk"
@@ -19,7 +19,7 @@ pages:
   image: alpine:latest
   dependencies:
     - build
-  script: tools/ci-pages.sh
+  script: .ci-tools/pages.sh
   artifacts:
     paths:
       - public
